@@ -1,0 +1,91 @@
+/* CSS Vocabulary */
+.image-list {
+    width: 150px;
+    height: 100px;
+}
+
+.cangiua {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-add {
+    position: fixed;
+    top: 0;
+    right: 0;
+    left: 0;
+    bottom: 0;
+    background-color: rgba(0,0,0,0.4);
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+.modal-add.open {
+    display: flex;
+}
+
+.modal-container {
+    width: 900px;
+    min-height: 200px;
+    background-color: white;
+    position: relative;
+    max-width: calc(100% - 32px);
+    animation: modal ease-in 0.4s;
+}
+.modal-close {
+    position: absolute;
+    top: 0;
+    right: 0;
+    color: white;
+    padding: 12px;
+    display: inline;
+    cursor: pointer;
+}
+
+.modal-close:hover {
+    background-color: black;
+}
+
+.form-add-voca {
+    margin: 0 32px;
+}
+
+.modal-header {
+    background-color: #009688;
+    height: 90px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 30px;
+    color: #fff;
+}
+
+.bag {
+    margin-right: 16px;
+}
+
+@keyframes modal {
+    from{
+        opacity: 0;
+        transform: translateY(-130px);
+    }
+    to{
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+:focus {outline: none;}
+
+input:focus:invalid {
+    box-shadow: 0 0 5px #d45252;
+    border-color: #b03535;
+  }
+
+  input:focus:valid {
+    box-shadow: 0 0 5px #5cd053;
+    border-color: #28921f;
+  }
+/* End css vocabulary */

@@ -1,0 +1,62 @@
+# Version docker-compose (tương tác đa nhiệm docker)
+version: "3"
+
+# Define network [option: driver]
+networks: 
+    my-network:
+
+# Service is place containing container
+services:
+  # Container web: Install CentOS 7, PHP 7.4, Composer, GIT đã cài đặt Docker file
+  centos:
+    build:
+      # Folder containing web server (folder server đã tạo)
+      context: ./server
+      # Dockerfile for setup container web
+      dockerfile: Dockerfile
+    # Name of container
+    container_name: server
+    # Setting container web dependent container mysql. Or use link
+    depends_on:
+      # Container name of MySQL (cùng tên image dưới)
+      - mysql 
+    # Config port  
+    ports:
+      - "1412:80"
+    # Mount the data of the local machine to server (tạo src chứa source code)
+    volumes:
+      # Source code
+      - ./src:/var/www/html
+      # Config vitual host (dẫn vào thư mục public để chạy dự án)
+      - ./server/myconf.conf:/etc/httpd/conf.d/default.conf
+    # Use the network defined above
+    networks:
+      - my-network
+  # MySQL    
+  mysql:
+    # Image mysql on DockerHub
+    image: mysql:5.7
+    # Name of container
+    container_name: mysql
+    # Restart when stopped
+    restart: unless-stopped
+    tty: true
+    # Config port  
+    ports: 
+        - "4306:3306"
+    # Mount the data of the local machine to server
+    volumes: 
+        - ./db_backup:/var/lib/mysql
+    # Setting environment variable
+    environment: 
+        # Database name
+        MYSQL_DATABASE: laravel
+        # Password for super user
+        MYSQL_ROOT_PASSWORD: root
+        # Username
+        MYSQL_USER: khanhvan
+        # Password
+        MYSQL_PASSWORD: khanhvan
+    # Use the network defined above
+    networks: 
+        - my-network
